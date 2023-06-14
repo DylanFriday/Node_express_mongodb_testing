@@ -4,6 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors')
+const mongoose = require('mongoose')
+const {db} = require('./config/database')
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -14,6 +16,12 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 app.use(cors())
+
+mongoose.connect(db,{
+  useNewUrlParser : true,
+  useunifiedtopology : true,
+}).then(()=>console.log('Mongodb connected'))
+.catch(err => console.log(err));
 
 const myLogger = function(req,res,next){
   console.log('Logged by us',req.url);
