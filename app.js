@@ -10,9 +10,11 @@ const {db} = require('./config/database')
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var todosRouter = require('./routes/todos');
+var movieRouter = require('./routes/movies');
+var reviewRouter = require('./routes/reviews');
 var app = express();
 
-// view engine setup
+// view engine setup 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 app.use(cors())
@@ -41,7 +43,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/todos',todosRouter); 
+app.use('/api/todos',todosRouter); 
+app.use('/api/movies',movieRouter)
+app.use('/api/reviews',reviewRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
